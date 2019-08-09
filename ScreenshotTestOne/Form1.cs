@@ -218,7 +218,7 @@ namespace ScreenshotTestOne
             }
             else
             {
-                this.Cursor = Cursors.Default;
+                this.Cursor = Cursors.Default; 
             }
         }
         #endregion
