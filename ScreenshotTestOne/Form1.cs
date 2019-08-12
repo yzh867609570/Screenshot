@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +36,12 @@ namespace ScreenshotTestOne
                     //Bi = new Bitmap(strHeadImagePath);  //使用打开的图片路径创建位图对像
                     //ImageCut1 IC = new ImageCut1(40, 112, this.pictureBox1.Width, this.pictureBox1.Height);      //实例化ImageCut类，四个参数据分别表示为：x、y、width、heigth，（40、112）表示pictureBox1的Lcation的坐标，（120、144）表示pictureBox1控件的宽度和高度
                     //this.pictureBox1.Image = IC.KiCut1((Bitmap)(this.GetSelectImage(this.pictureBox1.Width, this.pictureBox1.Height)));     //（120、144）表示pictureBox1控件的宽度和高度
-                    pictureBox1.Image = new Bitmap(strHeadImagePath);
+                    //pictureBox1.Image = new Bitmap();
+
+                    //本机屏幕分辨率
+                    var rect = Screen.GetWorkingArea(this);
+
+                    pictureBox1.Image = new Bitmap(new Bitmap(strHeadImagePath), rect.Width/2, rect.Height/2);
                 }
                 catch (Exception ex)
                 {
@@ -288,7 +294,7 @@ namespace ScreenshotTestOne
                     }
 
                     initImage = (System.Drawing.Image)pickedImage.Clone();
-                    //                //释放截图资源 
+                    //释放截图资源 
                     pickedG.Dispose();
                     pickedImage.Dispose();
                 }
@@ -311,5 +317,10 @@ namespace ScreenshotTestOne
             }
         }
         #endregion
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image.Save(@"C:\Users\tom86\Desktop\screenshot.jpg", ImageFormat.Jpeg);
+        }
     }
 }
